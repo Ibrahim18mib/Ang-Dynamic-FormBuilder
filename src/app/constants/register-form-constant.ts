@@ -1,4 +1,6 @@
-export const registerFormConfig = {
+import { IForm } from "../interface/form.interaface";
+
+export const registerFormConfig:IForm = {
   formTitle: 'Register Form',
   saveBtnTitle: 'Register',
   resetBtnTitle: 'Reset',
