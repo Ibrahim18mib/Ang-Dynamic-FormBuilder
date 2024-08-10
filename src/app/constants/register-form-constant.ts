@@ -1,10 +1,10 @@
-import { IForm } from "../interface/form.interaface";
+import { IForm } from '../interface/form.interaface';
 
-export const registerFormConfig:IForm = {
+export const registerFormConfig: IForm = {
   formTitle: 'Register Form',
   saveBtnTitle: 'Register',
   resetBtnTitle: 'Reset',
-  formcontrols: [
+  formcontrols: [ 
     {
       name: 'firstName',
       label: 'First Name',
@@ -34,7 +34,7 @@ export const registerFormConfig:IForm = {
           message: '*Last Name Required',
         },
         {
-          validatorName: 'minLength',
+          validatorName: 'minlength',
           minLength: 7,
           message: 'Min char should be 7',
         },

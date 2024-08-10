@@ -21,7 +21,7 @@ export class DynamicFormComponent implements OnInit {
 
   private fb = inject(FormBuilder);
 
-  dynamicFormGroup: FormGroup = this.fb.group({},{updateOn:'submit'});
+  dynamicFormGroup: FormGroup = this.fb.group({}, { updateOn: 'submit' });
 
   ngOnInit(): void {
     console.log('checki', this.form.formcontrols);
@@ -30,12 +30,12 @@ export class DynamicFormComponent implements OnInit {
       this.form.formcontrols.forEach((controls: IFormControl) => {
         let controlValidators: any = [];
         if (controls.validators) {
-          controlValidators.validators.forEach((val: IValidator) => {
+          controls?.validators?.forEach((val: IValidator) => {
             if (val.validatorName === 'required')
               controlValidators.push(Validators.required);
             if (val.validatorName === 'pattern')
               controlValidators.push(Validators.pattern(val.pattern as string));
-            if (val.validatorName === 'minLength')
+            if (val.validatorName === 'minlength')
               controlValidators.push(
                 Validators.minLength(val.minLength as number)
               );
@@ -50,7 +50,8 @@ export class DynamicFormComponent implements OnInit {
 
         formGroup[controls.name] = [controls.value || '', controlValidators];
       });
-      this.dynamicFormGroup = this.fb.group({ formGroup });
+      this.dynamicFormGroup = this.fb.group(formGroup);
+      console.log(this.dynamicFormGroup);
     }
   }
 
@@ -66,10 +67,15 @@ export class DynamicFormComponent implements OnInit {
     const myFormControl = this.dynamicFormGroup.get(control.name);
     let errorMessage = '';
     control.validators.forEach((val) => {
+      console.log(
+        { val },
+        myFormControl?.hasError(val.validatorName as string)
+      );
       if (myFormControl?.hasError(val.validatorName as string)) {
         errorMessage = val.message as string;
       }
     });
+    console.log(errorMessage);
     return errorMessage;
   }
 }
